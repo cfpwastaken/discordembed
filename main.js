@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send("This is Discord Embed! Use /embed/?title=Title etc.<br>Params:<br>title: The title<br>desc: The description<br>color: an optional color<br>image: An optional Image<br>big: If the image should be big (set to true)<br>redirect: Redirect on click<br>Poor docs ik xD");
+    res.send("This is Discord Embed! Use /embed/?title=Title etc.<br>Params:<br>title: The title<br>desc: The description<br>color: an optional color<br>image: An optional Image<br>big: If the image should be big (set to true)<br>redirect: Redirect on click<br>name: The name....<br>Poor docs ik xD");
 });
 
 app.get("/embed", (req, res) => {
@@ -15,6 +15,7 @@ app.get("/embed", (req, res) => {
     const image = req.query.img || "none";
     const big = (req.query.big === "true");
     const redirect = req.query.redirect || "none";
+    const name = req.query.name || "none";
 
     var html = "";
     html += '<meta property="og:title" content="' + title + '" />';
@@ -24,6 +25,7 @@ app.get("/embed", (req, res) => {
     if(big) html += '<meta name="twitter:card" content="summary_large_image">';
     if(redirect != "none") html += '<meta http-equiv="refresh" content="0; url=' + redirect + '" />';
     if(redirect != "none") html += '<script>window.location.href = "' + redirect + '";</script>';
+    if(name != "none") html += '<meta content="' + name + '" property="og:site_name">';
 
     html += "This embed was made using <a href='https://github.com/cfpwastaken/discordembed'>Discord Embed</a>! Learn how to make your own <a href='/'>here</a>";
 
