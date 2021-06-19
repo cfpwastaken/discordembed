@@ -5,7 +5,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send("This is Discord Embed! Use /embed/?title=Title etc.<br>Params:<br>title: The title<br>desc: The description<br>color: an optional color<br>image: An optional Image<br>big: If the image should be big (set to true)<br>redirect: Redirect on click<br>name: The name....<br>Poor docs ik xD");
+    // res.send("This is Discord Embed! Use /embed/?title=Title etc.<br>Params:<br>title: The title<br>desc: The description<br>color: an optional color<br>image: An optional Image<br>big: If the image should be big (set to true)<br>redirect: Redirect on click<br>name: The name....<br>Poor docs ik xD");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.get("/embed", (req, res) => {
@@ -14,7 +15,8 @@ app.get("/embed", (req, res) => {
     const color = req.query.color || "none";
     const image = req.query.img || "none";
     const big = (req.query.big === "true");
-    const redirect = req.query.redirect || "none";
+    var redirect = req.query.redirect || "none";
+    if(!redirect.startsWith("http")) redirect = "http://" + redirect;
     const name = req.query.name || "none";
 
     var html = "";
